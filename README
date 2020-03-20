@@ -1,0 +1,38 @@
+Lovedeep Singh	-	16103104
+
+Assumptions:
+- Whenever an assignment is present in an expression or a function call, it will be evaluated left to right
+- Assignment is evaluated from right to left to allow.
+//this means the following behaviour
+/*
+	a = 1;
+	b = a + (a = 5);
+	//will give 6 irrespective of the registers available or required.
+
+	a = 1;
+	b[a] = a = 10;
+	//will be b[10] and not b[1]
+*/
+
+Additions:
+- Array Parameter Passing
+	Arrays (any dimension arrays) can be passed by reference in the functions and be accessed/changed from there.
+- Function overloading 
+	Functions can be overloaded and it uses the GCC like ambiguity detection on a conflict
+	// say -> f(int,int) and f(float,float) are your 2 functions
+	// f(int,int) matches both but since it is a perfect match to one it is okay
+	// f(int,float) matches both but perfectly to non - this is ambiguous
+
+- Saved registers (as per requirement)
+	We use saved registers before function calls. ALso, the registers saved are only those which currently are in use not all the registers are saved.
+
+- C like print
+	We made a C like print function using the %d,%s,%f tags for arguments. It will check the consistency of argument types and number at compile time 
+- All the compile time errors are shown at one time. If there is an error, it assumes some details about the variable/etc 
+  and will continue to find other errors based on it.
+
+Optimisations:
+- used Nextlist, Truelist, Falselist, Fallthrough techniques of three address code to optimise the statement and expression code to reduce number of gotos and evaluations
+- C like Boolean evaluation where, in an && and || we reject or accept(resp.) whenever we find a false or true(resp.)
+- used a modified version of Sethi Ullman, to see which order of trees to be evaluated (this is overridden by the assumptions of assignment)
+- used constants directly if possible to reduce the number of register uses
